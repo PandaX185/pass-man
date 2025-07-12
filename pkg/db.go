@@ -87,3 +87,32 @@ func (db *BoltDB) GetPasswordByEmail(email string) (string, error) {
 	}
 	return password, nil
 }
+
+func (db *BoltDB) GetPasswordsByDomain(domain string) (string, error) {
+	var passwords []string
+	err := db.DB.View(func(tx *bolt.Tx) error {
+		bucket := tx.Bucket([]byte(domain))
+		if bucket == nil {
+			return fmt.Errorf("domain %s not found", domain)
+		}
+
+		return bucket.ForEach(func(k, v []byte) error {
+			decPassword, err := decrypt(string(v))
+			if err != nil {
+				return fmt.Errorf("error decrypting password for %s: %v", string(k), err)
+			}
+			passwords = append(passwords, fmt.Sprintf("%s: %s", string(k), decPassword))
+			return nil
+		})
+	})
+
+	if err != nil {
+		return "", err
+	}
+
+	if len(passwords) == 0 {
+		return "", fmt.Errorf("no passwords found for domain %s", domain)
+	}
+
+	return strings.Join(passwords, "\n"), nil
+}

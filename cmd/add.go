@@ -6,10 +6,11 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add <email> <password>",
-	Short: "Add/Change a new password for certail email",
-	Long:  `This command allows you to add or change a password for a specific email address.`,
-	Args:  cobra.ExactArgs(2),
+	Use:     "add <email> <password>",
+	Aliases: []string{"a"},
+	Short:   "Add/Change a new password for certail email",
+	Long:    `This command allows you to add or change a password for a specific email address.`,
+	Args:    cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		email := args[0]
 		password := args[1]

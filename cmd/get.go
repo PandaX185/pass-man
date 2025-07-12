@@ -7,10 +7,11 @@ import (
 )
 
 var getCmd = &cobra.Command{
-	Use:   "get <email>",
-	Short: "Retrieve the password for a specific email",
-	Long:  `This command allows you to retrieve the password associated with a specific email address.`,
-	Args:  cobra.ExactArgs(1),
+	Use:     "get <email>",
+	Aliases: []string{"g"},
+	Short:   "Retrieve the password for a specific email",
+	Long:    `This command allows you to retrieve the password associated with a specific email address.`,
+	Args:    cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		email := args[0]
 		bolt := &pkg.BoltDB{}
@@ -38,4 +39,6 @@ var getCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(getCmd)
+	getCmd.SetUsageTemplate("Usage: pass-man get <email>\n\n" +
+		"Retrieve the password for a specific email address.\n\n")
 }
