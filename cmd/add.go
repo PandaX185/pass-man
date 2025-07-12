@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/PandaX185/pass-man/consts"
 	"github.com/PandaX185/pass-man/pkg"
 	"github.com/spf13/cobra"
 )
@@ -17,17 +18,17 @@ var addCmd = &cobra.Command{
 		bolt := &pkg.BoltDB{}
 		err := bolt.OpenBoltDB()
 		if err != nil {
-			cmd.Println("Error opening database:", err)
+			cmd.Println(consts.RED("Error opening database:" + err.Error()))
 			return
 		}
 		defer bolt.DB.Close()
 
 		err = bolt.AddPassword(email, password)
 		if err != nil {
-			cmd.Println("Error adding password:", err)
+			cmd.Println(consts.RED("Error adding password:" + err.Error()))
 			return
 		}
-		cmd.Println("Password added successfully for", email)
+		cmd.Println(consts.GREEN("Password added successfully for" + email))
 	},
 }
 

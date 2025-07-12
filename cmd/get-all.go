@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/PandaX185/pass-man/consts"
 	"github.com/PandaX185/pass-man/pkg"
 	"github.com/atotto/clipboard"
 	"github.com/spf13/cobra"
@@ -17,22 +18,22 @@ var getAllCmd = &cobra.Command{
 		bolt := &pkg.BoltDB{}
 		err := bolt.OpenBoltDB()
 		if err != nil {
-			cmd.Println("Error opening database:", err)
+			cmd.Println(consts.RED("Error opening database:" + err.Error()))
 			return
 		}
 		defer bolt.DB.Close()
 
 		password, err := bolt.GetPasswordsByDomain(domain)
 		if err != nil {
-			cmd.Println("Error retrieving password:", err)
+			cmd.Println(consts.RED("Error retrieving password:" + err.Error()))
 			return
 		}
 
 		if err := clipboard.WriteAll(password); err != nil {
-			cmd.Println("Error copying passwords to clipboard:", err)
+			cmd.Println(consts.RED("Error copying passwords to clipboard:" + err.Error()))
 			return
 		}
-		cmd.Println("All passwords copied to clipboard successfully.")
+		cmd.Println(consts.GREEN("All passwords copied to clipboard successfully."))
 
 	},
 }
