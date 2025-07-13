@@ -115,3 +115,29 @@ func (db *BoltDB) GetPasswordsByDomain(domain string) (string, error) {
 
 	return strings.Join(passwords, "\n"), nil
 }
+
+func (db *BoltDB) GetAllPasswords() (map[string][]string, error) {
+	allPasswords := make(map[string][]string)
+	err := db.DB.View(func(tx *bolt.Tx) error {
+		return tx.ForEach(func(name []byte, b *bolt.Bucket) error {
+			return b.ForEach(func(k, v []byte) error {
+				decPassword, err := decrypt(string(v))
+				if err != nil {
+					return fmt.Errorf("error decrypting password for %s: %v", string(k), err)
+				}
+				allPasswords[string(name)] = append(allPasswords[string(name)], fmt.Sprintf("%s: %s", string(k), decPassword))
+				return nil
+			})
+		})
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(allPasswords) == 0 {
+		return nil, fmt.Errorf("no passwords found")
+	}
+
+	return allPasswords, nil
+}

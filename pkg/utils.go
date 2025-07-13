@@ -65,7 +65,7 @@ func CopyToClipboard(text string) error {
 	return cmd.Run()
 }
 
-func ConvertToJSON(plain string) (string, error) {
+func ConvertDomainPasswordsToJSON(plain string) (string, error) {
 	data := strings.Split(plain, "\n")
 	mp := make(map[string]string)
 	for _, line := range data {
@@ -75,6 +75,14 @@ func ConvertToJSON(plain string) (string, error) {
 		}
 	}
 	jsonData, err := json.Marshal(mp)
+	if err != nil {
+		return "", err
+	}
+	return string(jsonData), nil
+}
+
+func ConvertAllPasswordsToJSON(passwords map[string][]string) (string, error) {
+	jsonData, err := json.Marshal(passwords)
 	if err != nil {
 		return "", err
 	}
