@@ -49,7 +49,6 @@ func (db *BoltDB) AddPassword(email, password string) error {
 		if err != nil {
 			return fmt.Errorf("error storing password: %v", err)
 		}
-		fmt.Printf("Password added successfully for %s\n", email)
 		return nil
 	})
 	return nil

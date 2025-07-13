@@ -28,7 +28,7 @@ var addCmd = &cobra.Command{
 			cmd.Println(consts.RED("Error adding password:" + err.Error()))
 			return
 		}
-		cmd.Println(consts.GREEN("Password added successfully for" + email))
+		cmd.Println(consts.GREEN("Password added successfully for " + email))
 	},
 }
 
