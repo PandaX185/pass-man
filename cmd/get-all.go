@@ -54,7 +54,7 @@ var getAllCmd = &cobra.Command{
 				for domain, psswds := range passwords {
 					allPasswords += domain + ":\n" + strings.Join(psswds, "\n") + "\n\n"
 				}
-				if err := clipboard.WriteAll(allPasswords); err != nil {
+				if err := clipboard.WriteAll(allPasswords + "\n"); err != nil {
 					cmd.Println(consts.RED("Error copying all passwords to clipboard:" + err.Error()))
 					return
 				}
@@ -83,12 +83,12 @@ var getAllCmd = &cobra.Command{
 			}
 			defer file.Close()
 
-			_, err = file.WriteString(jsonOutput)
+			_, err = file.WriteString(jsonOutput + "\n")
 			if err != nil {
 				cmd.Println(consts.RED("Error writing to JSON file:" + err.Error()))
 				return
 			}
-			cmd.Println(consts.GREEN("Passwords written to" + args[0] + "_passwords.json successfully."))
+			cmd.Println(consts.GREEN("Passwords written to " + args[0] + "_passwords.json successfully."))
 		} else {
 			if err := clipboard.WriteAll(passwords); err != nil {
 				cmd.Println(consts.RED("Error copying passwords to clipboard:" + err.Error()))
