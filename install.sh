@@ -2,9 +2,9 @@
 
 set -e
 
-BINARY_NAME="pass-man"
+BINARY_NAME="passman"
 INSTALL_DIR="/usr/local/bin"
-ARCHIVE_URL="https://github.com/PandaX185/pass-man/releases/download/v1.0-beta/pass-man"
+ARCHIVE_URL="https://github.com/PandaX185/pass-man/releases/download/v1.1-beta/passman"
 TMP_DIR="/tmp/$BINARY_NAME-install"
 
 echo "📦 Starting installation of $BINARY_NAME..."

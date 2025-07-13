@@ -3,7 +3,7 @@ package cmd
 import "github.com/spf13/cobra"
 
 var rootCmd = &cobra.Command{
-	Use:   "pass-man",
+	Use:   "passman",
 	Short: "Password Manager CLI",
 	Long:  `This is a command line interface for managing passwords securely.`,
 	Run: func(cmd *cobra.Command, args []string) {

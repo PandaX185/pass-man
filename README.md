@@ -29,13 +29,13 @@ curl -sL https://raw.githubusercontent.com/PandaX185/pass-man/refs/heads/master/
 Add or update a password for a specific email address:
 
 ```bash
-pass-man add <email> <password>
-pass-man a <email> <password>  # Short alias
+passman add <email> <password>
+passman a <email> <password>  # Short alias
 ```
 
 **Example:**
 ```bash
-pass-man add john@example.com mySecurePassword123
+passman add john@example.com mySecurePassword123
 ```
 
 ### Retrieve a Password
@@ -43,13 +43,13 @@ pass-man add john@example.com mySecurePassword123
 Get the password for a specific email address (copies to clipboard):
 
 ```bash
-pass-man get <email>
-pass-man g <email>  # Short alias
+passman get <email>
+passman g <email>  # Short alias
 ```
 
 **Example:**
 ```bash
-pass-man get john@example.com
+passman get john@example.com
 ```
 
 ### Get All Passwords for a Domain
@@ -57,13 +57,13 @@ pass-man get john@example.com
 Retrieve all passwords for a specific domain (copies to clipboard):
 
 ```bash
-pass-man get-all <domain>
-pass-man ga <domain>  # Short alias
+passman get-all <domain>
+passman ga <domain>  # Short alias
 ```
 
 **Example:**
 ```bash
-pass-man get-all example
+passman get-all example
 ```
 
 ### Help
@@ -71,6 +71,6 @@ pass-man get-all example
 Display help information:
 
 ```bash
-pass-man --help
-pass-man <command> --help
+passman --help
+passman <command> --help
 ```
