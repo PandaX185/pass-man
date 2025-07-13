@@ -28,10 +28,10 @@ else
 fi
 
 rm -rf "$TMP_DIR"
-mkdir -p "$HOME/.config/passman"
+sudo mkdir -p "$HOME/.config/passman"
 
 echo "🔑 Generating encryption key..."
-curl -sL https://raw.githubusercontent.com/PandaX185/pass-man/refs/tags/v1.0-beta/gen-key.sh | bash
+curl -sL https://raw.githubusercontent.com/PandaX185/pass-man/refs/tags/v1.1-beta/gen-key.sh | sudo bash
 echo "🔑 Encryption key generated and stored in /usr/local/bin/pass-man.env"
 echo "🚀 Installation complete!"
 echo "➡️  You can now run it using: $BINARY_NAME"
