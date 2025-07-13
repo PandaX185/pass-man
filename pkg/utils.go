@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"os"
 	"os/exec"
 	"strings"
@@ -33,7 +34,8 @@ func encrypt(text string) (string, error) {
 	cfb := cipher.NewCFBEncrypter(block, iv)
 	cipherText := make([]byte, len(plainText))
 	cfb.XORKeyStream(cipherText, plainText)
-	return base64.StdEncoding.EncodeToString(append(iv, cipherText...)), nil
+	cipherText = append(iv, cipherText...)
+	return base64.StdEncoding.EncodeToString(cipherText), nil
 }
 
 func decrypt(encryptedText string) (string, error) {
@@ -61,4 +63,20 @@ func CopyToClipboard(text string) error {
 	cmd := exec.Command("xclip", "-selection", "clipboard")
 	cmd.Stdin = strings.NewReader(text)
 	return cmd.Run()
+}
+
+func ConvertToJSON(plain string) (string, error) {
+	data := strings.Split(plain, "\n")
+	mp := make(map[string]string)
+	for _, line := range data {
+		parts := strings.SplitN(line, ":", 2)
+		if len(parts) == 2 {
+			mp[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
+		}
+	}
+	jsonData, err := json.Marshal(mp)
+	if err != nil {
+		return "", err
+	}
+	return string(jsonData), nil
 }
