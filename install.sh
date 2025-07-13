@@ -28,6 +28,7 @@ else
 fi
 
 rm -rf "$TMP_DIR"
+mkdir -p "$HOME/.config/passman"
 
 echo "🔑 Generating encryption key..."
 curl -sL https://raw.githubusercontent.com/PandaX185/pass-man/refs/tags/v1.0-beta/gen-key.sh | bash

@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -17,8 +18,9 @@ func (db *BoltDB) OpenBoltDB() error {
 	if db.DB != nil {
 		return nil
 	}
+
 	var err error
-	db.DB, err = bolt.Open("passwords.db", 0600, &bolt.Options{
+	db.DB, err = bolt.Open(os.Getenv("HOME")+"/.config/passman/.passwords.db", 0600, &bolt.Options{
 		Timeout: 1 * time.Second,
 	})
 	if err != nil {
